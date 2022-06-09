@@ -1,10 +1,11 @@
-FROM node:8.11.3-alpine
-RUN mkdir -p /usr/src/app
-WORKDIR /usr/src/app
-COPY package*.json ./
-RUN npm install -g nodemon
-RUN npm install -g @angular/cli@6.0.8 && npm install
-COPY . /usr/src/app
-EXPOSE 8000
--v ./src:/usr/src/app/src
-CMD ng serve --poll 200 --host 0.0.0.0
+#stage 1
+FROM node:latest as node
+RUN mkdir -p /app
+WORKDIR /app
+COPY package.json /app
+RUN npm install
+COPY . /app
+RUN npm run build --prod
+#stage 2
+FROM nginx:latest
+COPY --from=node /app/dist/angular-tour-of-heroes /usr/share/nginx/html
