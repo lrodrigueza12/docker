@@ -10,3 +10,4 @@ RUN npm run build
 FROM nginx:latest
 COPY --from=node /app/dist/angular-tour-of-heroes /usr/share/nginx/html
 EXPOSE 80
+ENTRYPOINT ["npm", "start"]
