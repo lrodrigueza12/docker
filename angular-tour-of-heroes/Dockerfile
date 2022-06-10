@@ -8,5 +8,6 @@ COPY . /app
 RUN npm run build --prod
 #stage 2
 FROM nginx:latest
+COPY nginx.conf /etc/nginx/nginx.conf
 COPY --from=node /app/dist/angular-tour-of-heroes /usr/share/nginx/html
-EXPOSE 8080
+EXPOSE 80
