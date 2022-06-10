@@ -5,7 +5,7 @@ WORKDIR /app
 COPY package.json /app
 RUN npm install
 COPY . /app
-RUN npm run build --prod
+RUN npm run build
 #stage 2
 FROM nginx:latest
 COPY --from=node /app/dist/angular-tour-of-heroes /usr/share/nginx/html
