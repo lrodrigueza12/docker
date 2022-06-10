@@ -9,3 +9,4 @@ RUN npm run build --prod
 #stage 2
 FROM nginx:latest
 COPY --from=node /app/dist/angular-tour-of-heroes /usr/share/nginx/html
+EXPOSE 8080
